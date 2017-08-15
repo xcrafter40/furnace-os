@@ -8,7 +8,7 @@ print()
 
 local sver = "1.0"
 
-term.write(" FurnaceOS " .. sver)
+term.write("FurnaceOS " .. sver)
 
 local cpath = "/"
 local run = true
