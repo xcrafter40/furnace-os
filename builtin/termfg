@@ -1,0 +1,23 @@
+args = {...}
+
+if #args ~= 1 then
+  print("usage: termfg <color>")
+  return
+end
+
+local clr = tonumber(args[1])
+
+local function validcolor(clr)
+  for _, v in pairs({1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768}) do
+    if clr == v then
+      return true
+    end
+  end
+end
+
+if not validcolor(clr) then
+  print("termcolor: invalid color")
+  return
+else
+  setfg(clr)
+end

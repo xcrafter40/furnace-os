@@ -1,0 +1,26 @@
+local args = {...}
+if #args ~= 1 then
+	print("usage: cd <path>")
+	return
+end
+
+local newDir = args[1]
+
+if newDir == ".." then
+	if readpath() ~= "/" then
+		if "/" .. fs.getDir(readpath()) .. "/" == "//" then
+			setpath("/")
+		else
+			setpath("/" .. fs.getDir(readpath()) .. "/")
+		end
+	end
+elseif newDir == "/" then
+	setpath("/")
+elseif fs.isDir(newDir) and ispath(newDir) then
+	setpath(newDir .. "/")
+elseif fs.isDir(readpath() .. newDir) and not ispath(newDir) then
+	setpath(readpath() .. newDir .. "/")
+else
+  print("cd: Not a directory")
+  return
+end

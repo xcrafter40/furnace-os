@@ -1,0 +1,22 @@
+local args = {...}
+
+if #args < 1 then
+	print("usage: cat <file>")
+	return
+end
+
+local file = resolve(args[1])
+
+if not fs.exists(file) then
+  print("cat: " .. file .. ": No such file or directory")
+  return
+end
+
+local x = fs.open(file, "r")
+l = x.readLine()
+while l ~= nil do
+  print(l)
+	read()
+	l = x.readLine()
+end
+x.close()

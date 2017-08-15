@@ -1,0 +1,20 @@
+local args = {...}
+
+if #args ~= 1 then
+	print("usage: mkdir <folder>")
+	return
+end
+
+local file = resolve(args[1])
+
+if fs.exists(file) then
+  print("mkdir: " .. file .. ": File exists")
+  return
+end
+
+if fs.isReadOnly(file) then
+  print("mkdir: read only")
+  return
+end
+
+fs.makeDir(file)

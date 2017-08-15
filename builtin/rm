@@ -1,0 +1,20 @@
+local args = {...}
+
+if #args ~= 1 then
+	print("usage: rm <file>")
+	return
+end
+
+file = resolve(args[1])
+
+if not fs.exists(file) then
+  print("rm: " .. file .. ": No such file or directory")
+  return
+end
+
+if fs.isReadOnly(file) then
+  print("rm: read only")
+  return
+end
+
+fs.delete(file)
