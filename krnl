@@ -5,8 +5,6 @@ term.clear()
 
 term.write("Login: " .. textutils.formatTime(os.time(),true) .. "-" .. os.day() .. " on ttys000")
 print()
-print()
-shell.run("furnace/limg furnace/fimg 1 1")
 
 local sver = "1.0"
 
