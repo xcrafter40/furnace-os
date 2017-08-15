@@ -1,0 +1,56 @@
+function loadBLittle(_filename)
+	local input = fs.open(_filename, "rb")
+	if not input then error("Can't open for input.") end
+	
+	local function readInt()
+		local result = input.read()
+		return result + bit.blshift(input.read(), 8)
+	end
+	
+	local image = {}
+	image.width = readInt()
+	image.height = readInt()
+	
+	local imgComponents = {"text", "fg", "bg"}
+	for _,i in ipairs(imgComponents) do
+		local thisSet = {}
+		for y = 1, image.height do
+			local thisRow = {}
+			for x = 1, image.width do thisRow[x] = string.char(input.read()) end
+			thisSet[y] = thisRow
+		end
+		image[i] = thisSet
+	end
+	
+	input.close()
+	sChange = false
+	
+	return image
+end
+
+local function drawChar(x, y)
+	term.setCursorPos(offx + x, offy + y)
+	if img.bg[y][x] == nil then
+		term.blit(nullchar, "7", "f")
+	else
+		term.blit(img.text[y][x] and img.text[y][x] or " ", 
+			img.fg[y][x] and img.fg[y][x] or img.bg[y][x], img.bg[y][x])
+	end
+end
+
+args = {...}
+
+if ... == nil then
+  return
+end
+
+img = loadBLittle(args[1])
+
+offx = args[2]
+offy = args[3]
+
+for y = 1, img.height do
+	for x = 1, img.width do
+		drawChar(x, y)
+	end
+end
